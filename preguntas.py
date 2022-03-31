@@ -19,9 +19,16 @@ def pregunta_01():
 
     Rta/
     214
-
+    
     """
-    return
+    data = open("data.csv", "r").readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[1] for x in data[:]]
+    data = [int(field) for field in data]
+    suma=sum(data)
+  
+    return suma
 
 
 def pregunta_02():
@@ -39,7 +46,21 @@ def pregunta_02():
     ]
 
     """
-    return
+    data = open("data.csv", "r").readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[0] for x in data[:]]
+    letras = sorted(set(data))
+    tuplas=[]
+    for i in letras: 
+        y=0
+        for x in data:
+            if x == i:
+                y+=1
+            
+        tuplas.append((i, y))
+    
+    return tuplas
 
 
 def pregunta_03():
