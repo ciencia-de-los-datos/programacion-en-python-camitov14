@@ -13,6 +13,10 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from dataclasses import replace
+from operator import itemgetter
+
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -29,7 +33,6 @@ def pregunta_01():
     suma=sum(data)
   
     return suma
-
 
 def pregunta_02():
     """
@@ -78,7 +81,20 @@ def pregunta_03():
     ]
 
     """
-    return
+    from operator import itemgetter
+    data = open("data.csv", "r").readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    keys=sorted(set([x[0] for x in data]),key=itemgetter(0))
+    tuplas=[]
+    for i in keys: 
+        suma=0
+        for x in data:
+            if x[0]==i:
+                suma+= x[1]
+        tuplas.append((i,suma))
+    return tuplas
 
 
 def pregunta_04():
@@ -103,8 +119,23 @@ def pregunta_04():
     ]
 
     """
-    return
-
+    data = open("data.csv", "r").readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[2] for x in data]
+    data = [x.split("-") for x in data]
+    data
+    i_mes=sorted(set([x[1] for x in data]))
+    i_mes
+    tuplas=[]
+    for i in i_mes:
+        y=0
+        for x in data:
+            if x[1]==i:
+                y+=1
+        tuplas.append((str(i),y))
+    return tuplas
+    
 
 def pregunta_05():
     """
