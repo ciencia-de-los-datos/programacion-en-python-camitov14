@@ -25,11 +25,11 @@ def pregunta_01():
     214
     
     """
-    data = open("data.csv", "r").readlines()
-    data = [x.replace("\n", "") for x in data]
+    
+    with open("data.csv", "r") as file:
+        data = file.readlines()
     data = [x.split("\t") for x in data]
-    data=[x[1] for x in data[:]]
-    data = [int(field) for field in data]
+    data=[int(x[1]) for x in data]
     suma=sum(data)
   
     return suma
@@ -49,22 +49,21 @@ def pregunta_02():
     ]
 
     """
-    data = open("data.csv", "r").readlines()
-    data = [x.replace("\n", "") for x in data]
-    data = [x.split("\t") for x in data]
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
     data=[x[0] for x in data[:]]
-    letras = sorted(set(data))
+    contador={}
+    for x in data:
+        if x in contador.keys():
+            contador[x]+=1
+        else:
+            contador[x]=1
     tuplas=[]
-    for i in letras: 
-        y=0
-        for x in data:
-            if x == i:
-                y+=1
-            
-        tuplas.append((i, y))
-    
+    for key, value in contador.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
     return tuplas
-
 
 def pregunta_03():
     """
@@ -82,20 +81,22 @@ def pregunta_03():
 
     """
     from operator import itemgetter
-    data = open("data.csv", "r").readlines()
-    data = [x.replace("\n", "") for x in data]
+    with open("data.csv", "r") as file:
+        data = file.readlines()
     data = [x.split("\t") for x in data]
     data=[[x[0], int(x[1])] for x in data]
-    keys=sorted(set([x[0] for x in data]),key=itemgetter(0))
+    suma={}
+    for x in data:
+        if x[0] in suma.keys():
+            suma[x[0]]+=x[1]
+        else:
+            suma.update({x[0]:x[1]})
     tuplas=[]
-    for i in keys: 
-        suma=0
-        for x in data:
-            if x[0]==i:
-                suma+= x[1]
-        tuplas.append((i,suma))
-    return tuplas
+    for key, value in suma.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_04():
     """
@@ -119,23 +120,24 @@ def pregunta_04():
     ]
 
     """
-    data = open("data.csv", "r").readlines()
-    data = [x.replace("\n", "") for x in data]
+    with open("data.csv", "r") as file:
+        data = file.readlines()
     data = [x.split("\t") for x in data]
     data=[x[2] for x in data]
     data = [x.split("-") for x in data]
-    data
-    i_mes=sorted(set([x[1] for x in data]))
-    i_mes
+    data=[x[1] for x in data]
+    contador={}
+    for x in data:
+        if x in contador.keys():
+            contador[x]+=1
+        else:
+            contador[x]=1
     tuplas=[]
-    for i in i_mes:
-        y=0
-        for x in data:
-            if x[1]==i:
-                y+=1
-        tuplas.append((str(i),y))
+    for key, value in contador.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
+
     return tuplas
-    
 
 def pregunta_05():
     """
@@ -152,8 +154,21 @@ def pregunta_05():
     ]
 
     """
-    return
-
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    dict_lista={}
+    for x in data:
+        if x[0] in dict_lista.keys():
+            dict_lista[x[0]].append(x[1])
+        else:
+            dict_lista[x[0]]=[x[1]]
+    tuplas=[(key,max(value),min(value)) for key,value in dict_lista.items()]
+    tuplas=sorted( tuplas,key=itemgetter(0))
+    
+    return tuplas
 
 def pregunta_06():
     """
@@ -177,8 +192,29 @@ def pregunta_06():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[4] for x in data]
+    data = [x.split(",") for x in data]
+    data1=[]
+    for x in data:
+        data1+=x
+    data1 = [x.split(":") for x in data1]
+    dict_list={}
+    for x in data1:
+        entero=int(x[1])
+        if x[0] in dict_list.keys():
+            dict_list[x[0]].append(entero)
+        else:
+            dict_list[x[0]]=[entero]
+    
+    tuplas=[(key,min(value),max(value)) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_07():
     """
@@ -201,8 +237,21 @@ def pregunta_07():
     ]
 
     """
-    return
-
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    dict_list={}
+    for x in data:
+        if x[1] in dict_list.keys():
+            dict_list[x[1]].append(x[0])
+        else:
+            dict_list.update({x[1]:[x[0]]})
+    tuplas=[(key,value) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
+    
+    return tuplas
 
 def pregunta_08():
     """
@@ -226,8 +275,24 @@ def pregunta_08():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[(x[0], int(x[1])) for x in data]
+    data=sorted(set(data),key=itemgetter(0))
+    data
+    dict_list={}
+    for (x,y) in data:
+        if y in dict_list.keys():
+            dict_list[y].append(x)
+        else:
+            dict_list.update({y:[x]})
+    dict_list
+    tuplas=[(key,value) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_09():
     """
@@ -249,6 +314,27 @@ def pregunta_09():
     }
 
     """
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[4] for x in data]
+    data = [x.split(",") for x in data]
+    data1=[]
+    for x in data:
+        data1+=x
+    data1 = [x.split(":") for x in data1]
+    dict_list={}
+    for x in data1:
+        if x[0] in dict_list.keys():
+            dict_list[x[0]]+=1
+        else:
+            dict_list[x[0]]=1
+    
+    tuplas=[(key,value) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))   
+            
     return
 
 
