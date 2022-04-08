@@ -333,7 +333,7 @@ def pregunta_09():
             dict_list[x[0]]=1
     dict_ord=dict(sorted(dict_list.items()))
             
-    return tuplas
+    return dict_ord
 
 
 def pregunta_10():
