@@ -282,14 +282,12 @@ def pregunta_08():
     data = [x.split("\t") for x in data]
     data=[(x[0], int(x[1])) for x in data]
     data=sorted(set(data),key=itemgetter(0))
-    data
     dict_list={}
     for (x,y) in data:
         if y in dict_list.keys():
             dict_list[y].append(x)
         else:
             dict_list.update({y:[x]})
-    dict_list
     tuplas=[(key,value) for key,value in dict_list.items()]
     tuplas=sorted(tuplas,key=itemgetter(0))
 
@@ -362,7 +360,6 @@ def pregunta_10():
     data = [x.replace("\n", "") for x in data]
     data = [x.split("\t") for x in data]
     data = [(x[0],len(x[3].split(",")),len(x[4].split(","))) for x in data]  
-    data
     return data
 
 def pregunta_11():
@@ -428,5 +425,5 @@ def pregunta_12():
             else:
                 suma[x[0]]=int(i[4:])
     suma_ord=dict(sorted(suma.items()))
-    
+
     return suma_ord
