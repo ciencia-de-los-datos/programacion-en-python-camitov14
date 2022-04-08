@@ -331,9 +331,7 @@ def pregunta_09():
             dict_list[x[0]]+=1
         else:
             dict_list[x[0]]=1
-    
-    tuplas=[(key,value) for key,value in dict_list.items()]
-    tuplas=sorted(tuplas,key=itemgetter(0))   
+    dict_ord=dict(sorted(dict_list.items()))
             
     return tuplas
 
