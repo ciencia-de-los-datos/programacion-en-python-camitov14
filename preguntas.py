@@ -15,6 +15,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 from dataclasses import replace
 from operator import itemgetter
+from typing import OrderedDict
 
 
 def pregunta_01():
@@ -335,7 +336,7 @@ def pregunta_09():
     tuplas=[(key,value) for key,value in dict_list.items()]
     tuplas=sorted(tuplas,key=itemgetter(0))   
             
-    return
+    return tuplas
 
 
 def pregunta_10():
@@ -356,8 +357,13 @@ def pregunta_10():
 
 
     """
-    return
-
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data = [(x[0],len(x[3].split(",")),len(x[4].split(","))) for x in data]  
+    data
+    return data
 
 def pregunta_11():
     """
@@ -377,7 +383,21 @@ def pregunta_11():
 
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[int(x[1]),x[3].split(",")] for x in data]
+    suma={}
+    for x in data:
+        for i in x[1]:
+            if i in suma.keys():
+                suma[i]+=x[0]
+            else:
+                suma[i]=x[0]
+    
+    suma_ord=dict(sorted(suma.items()))
+    return suma_ord
 
 
 def pregunta_12():
@@ -395,4 +415,18 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[[x[0],x[4].split(",")] for x in data]
+    suma={}
+    for x in data:
+        for i in x[1]:
+            if x[0] in suma.keys():
+                suma[x[0]]+=int(i[4:])
+            else:
+                suma[x[0]]=int(i[4:])
+    suma_ord=dict(sorted(suma.items()))
+    
+    return suma_ord
