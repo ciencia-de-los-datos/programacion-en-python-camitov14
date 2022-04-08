@@ -13,16 +13,27 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+from dataclasses import replace
+from operator import itemgetter
+from typing import OrderedDict
+
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
 
     Rta/
     214
-
+    
     """
-    return
-
+    
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[int(x[1]) for x in data]
+    suma=sum(data)
+  
+    return suma
 
 def pregunta_02():
     """
@@ -39,8 +50,21 @@ def pregunta_02():
     ]
 
     """
-    return
-
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data=[x[0] for x in data[:]]
+    contador={}
+    for x in data:
+        if x in contador.keys():
+            contador[x]+=1
+        else:
+            contador[x]=1
+    tuplas=[]
+    for key, value in contador.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
+    return tuplas
 
 def pregunta_03():
     """
@@ -57,8 +81,23 @@ def pregunta_03():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    suma={}
+    for x in data:
+        if x[0] in suma.keys():
+            suma[x[0]]+=x[1]
+        else:
+            suma.update({x[0]:x[1]})
+    tuplas=[]
+    for key, value in suma.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_04():
     """
@@ -82,8 +121,25 @@ def pregunta_04():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[x[2] for x in data]
+    data = [x.split("-") for x in data]
+    data=[x[1] for x in data]
+    contador={}
+    for x in data:
+        if x in contador.keys():
+            contador[x]+=1
+        else:
+            contador[x]=1
+    tuplas=[]
+    for key, value in contador.items():
+        tuplas.append((key,value))
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_05():
     """
@@ -100,8 +156,21 @@ def pregunta_05():
     ]
 
     """
-    return
-
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    dict_lista={}
+    for x in data:
+        if x[0] in dict_lista.keys():
+            dict_lista[x[0]].append(x[1])
+        else:
+            dict_lista[x[0]]=[x[1]]
+    tuplas=[(key,max(value),min(value)) for key,value in dict_lista.items()]
+    tuplas=sorted( tuplas,key=itemgetter(0))
+    
+    return tuplas
 
 def pregunta_06():
     """
@@ -125,8 +194,29 @@ def pregunta_06():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[4] for x in data]
+    data = [x.split(",") for x in data]
+    data1=[]
+    for x in data:
+        data1+=x
+    data1 = [x.split(":") for x in data1]
+    dict_list={}
+    for x in data1:
+        entero=int(x[1])
+        if x[0] in dict_list.keys():
+            dict_list[x[0]].append(entero)
+        else:
+            dict_list[x[0]]=[entero]
+    
+    tuplas=[(key,min(value),max(value)) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_07():
     """
@@ -149,8 +239,21 @@ def pregunta_07():
     ]
 
     """
-    return
-
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[x[0], int(x[1])] for x in data]
+    dict_list={}
+    for x in data:
+        if x[1] in dict_list.keys():
+            dict_list[x[1]].append(x[0])
+        else:
+            dict_list.update({x[1]:[x[0]]})
+    tuplas=[(key,value) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
+    
+    return tuplas
 
 def pregunta_08():
     """
@@ -174,8 +277,22 @@ def pregunta_08():
     ]
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[(x[0], int(x[1])) for x in data]
+    data=sorted(set(data),key=itemgetter(0))
+    dict_list={}
+    for (x,y) in data:
+        if y in dict_list.keys():
+            dict_list[y].append(x)
+        else:
+            dict_list.update({y:[x]})
+    tuplas=[(key,value) for key,value in dict_list.items()]
+    tuplas=sorted(tuplas,key=itemgetter(0))
 
+    return tuplas
 
 def pregunta_09():
     """
@@ -197,7 +314,26 @@ def pregunta_09():
     }
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[x[4] for x in data]
+    data = [x.split(",") for x in data]
+    data1=[]
+    for x in data:
+        data1+=x
+    data1 = [x.split(":") for x in data1]
+    dict_list={}
+    for x in data1:
+        if x[0] in dict_list.keys():
+            dict_list[x[0]]+=1
+        else:
+            dict_list[x[0]]=1
+    dict_ord=dict(sorted(dict_list.items()))
+            
+    return dict_ord
 
 
 def pregunta_10():
@@ -218,8 +354,12 @@ def pregunta_10():
 
 
     """
-    return
-
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data = [(x[0],len(x[3].split(",")),len(x[4].split(","))) for x in data]  
+    return data
 
 def pregunta_11():
     """
@@ -239,7 +379,21 @@ def pregunta_11():
 
 
     """
-    return
+    from operator import itemgetter
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.split("\t") for x in data]
+    data=[[int(x[1]),x[3].split(",")] for x in data]
+    suma={}
+    for x in data:
+        for i in x[1]:
+            if i in suma.keys():
+                suma[i]+=x[0]
+            else:
+                suma[i]=x[0]
+    
+    suma_ord=dict(sorted(suma.items()))
+    return suma_ord
 
 
 def pregunta_12():
@@ -257,4 +411,18 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv", "r") as file:
+        data = file.readlines()
+    data = [x.replace("\n", "") for x in data]
+    data = [x.split("\t") for x in data]
+    data=[[x[0],x[4].split(",")] for x in data]
+    suma={}
+    for x in data:
+        for i in x[1]:
+            if x[0] in suma.keys():
+                suma[x[0]]+=int(i[4:])
+            else:
+                suma[x[0]]=int(i[4:])
+    suma_ord=dict(sorted(suma.items()))
+
+    return suma_ord
