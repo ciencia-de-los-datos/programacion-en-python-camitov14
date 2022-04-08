@@ -121,6 +121,7 @@ def pregunta_04():
     ]
 
     """
+    from operator import itemgetter
     with open("data.csv", "r") as file:
         data = file.readlines()
     data = [x.split("\t") for x in data]
